@@ -55,7 +55,6 @@ class Recipe<T extends Ingredient>{
     }
 }
 public class Main {
-
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         System.out.println("Enter recipe name:");
@@ -63,11 +62,11 @@ public class Main {
         System.out.println("Enter instructions:");
         String instructions = s.nextLine();
         Recipe<Ingredient> recipe = new Recipe<Ingredient>(name, instructions);
-        int choice = Menu();
+        int choice = Menu(s);
         while( choice != 3){
             switch(choice){
                 case 1 -> addIngredient(recipe, s);
-                case 2 -> recipe.print();
+                //case 2 -> recipe.print();
             }
         }
     }
