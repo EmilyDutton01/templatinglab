@@ -55,21 +55,6 @@ class Recipe<T extends Ingredient>{
     }
 }
 public class Main {
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Enter recipe name:");
-        String name = s.nextLine();
-        System.out.println("Enter instructions:");
-        String instructions = s.nextLine();
-        Recipe<Ingredient> recipe = new Recipe<Ingredient>(name, instructions);
-        int choice = Menu(s);
-        while( choice != 3){
-            switch(choice){
-                case 1 -> addIngredient(recipe, s);
-                //case 2 -> recipe.print();
-            }
-        }
-    }
     public static void addIngredient(Recipe<Ingredient> recipe, Scanner s){
         System.out.println("solid (s) or liquid(l)");
         char type = s.next().charAt(0);
@@ -86,7 +71,6 @@ public class Main {
         recipe.addIngredient(ingredient);
     }
     private static int Menu(Scanner s) {
-        Recipe<Ingredient> r;
         System.out.println("Recipe Menu:");
         System.out.println("1. Add ingredient");
         System.out.println("2. Print ingredients");
@@ -95,12 +79,29 @@ public class Main {
         int choice = 0;
         while (choice != 3){
             try{
-                choice = Integer.valueOf(s.nextLine());
+                choice = Integer.parseInt(s.nextLine());
             } catch(NumberFormatException e){
                 System.out.println("invalid data entry");
                 System.exit(-1);
             }
         }
         return choice;
+    }
+    public static void main(String[] args) {
+        Recipe<Ingredient> r;
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter recipe name:");
+        String name = s.nextLine();
+        System.out.println("Enter instructions:");
+        String instructions = s.nextLine();
+        Recipe<Ingredient> recipe = new Recipe<>(name, instructions);
+        int choice = Menu(s);
+        while( choice != 3){
+            if (choice == 1){
+                addIngredient(recipe, s);
+            } else if (choice == 2){
+                recipe.printIngredients();
+            }
+        }
     }
 }
